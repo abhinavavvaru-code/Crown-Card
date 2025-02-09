@@ -1,0 +1,37 @@
+# Crown unit economics — the shared revenue model.
+# All monetary values are USD; rates are annualized unless noted.
+
+interchange:
+  # Blended network interchange on card purchase volume.
+  base_rate: 0.016            # ~1.6% at ordinary merchants
+  partner_rate: 0.024         # richer small-merchant capture at partnered campus merchants
+  crown_share: 0.75           # Crown keeps 75% of interchange
+  bank_share: 0.25            # issuing bank keeps 25%
+
+banking_fees:
+  # Interest + late fees. Bank is the lender of record, so it takes the majority.
+  crown_share: 0.25           # Crown keeps 25% of banking-fee revenue
+  bank_share: 0.75            # issuing bank keeps 75%
+  apr: 0.265                  # 26.5% purchase APR post-grace (24-29% band)
+  intro_apr: 0.0              # 0% intro APR
+  intro_apr_months: 3         # for the first 3 statement cycles
+  late_fee: 25.0              # per missed payment
+  late_fee_prob_monthly: 0.04 # baseline monthly probability of a late fee
+
+rewards:
+  # Cashback paid to cardholders; partner cashback is partly sponsor-funded.
+  base_cashback: 0.01         # 1% everywhere
+  partner_cashback: 0.03      # 3% at partnered campus merchants
+  partner_sponsor_offset: 0.6 # merchants/partners reimburse 60% of partner cashback
+
+credit_limits:
+  starter_min: 300
+  starter_max: 1000
+  # Tenure-based step-up: multiplier applied to the starter limit by months on book.
+  step_up_schedule:
+    - { months: 0,  multiplier: 1.00 }
+    - { months: 6,  multiplier: 1.25 }
+    - { months: 12, multiplier: 1.60 }
+    - { months: 18, multiplier: 2.00 }
+    - { months: 24, multiplier: 2.50 }
+  absolute_cap: 3000

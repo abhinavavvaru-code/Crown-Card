@@ -1,0 +1,43 @@
+# Rule-based underwriting tuned for thin-file student applicants.
+
+seed: 42
+
+# Synthetic applicant generator parameters.
+generator:
+  n_applicants: 50
+  school_years: [freshman, sophomore, junior, senior, graduate]
+  school_year_weights: [0.22, 0.24, 0.24, 0.18, 0.12]
+  # Monthly income/allowance (USD), lognormal per school year (mu, sigma of underlying normal).
+  income_lognormal:
+    freshman:  { mu: 6.0, sigma: 0.45 }   # ~ $400/mo median
+    sophomore: { mu: 6.15, sigma: 0.45 }
+    junior:    { mu: 6.35, sigma: 0.5 }
+    senior:    { mu: 6.6, sigma: 0.55 }
+    graduate:  { mu: 7.1, sigma: 0.6 }    # ~ $1200/mo median (stipends/TA)
+  thin_file_prob: 0.6            # 60% of student applicants are thin-file
+  credit_score:                 # for scored applicants only
+    mean: 670
+    sd: 45
+    min: 520
+    max: 780
+  dti:                          # debt-to-income, beta-distributed
+    alpha: 2.0
+    beta: 6.0                   # skews low; scaled to 0-0.6
+
+# Decision rules. Applied top-down; first failing hard rule => decline.
+rules:
+  min_monthly_income: 250
+  max_dti: 0.45
+  min_credit_score_scored: 580   # scored applicants below this are declined
+  # Thin-file applicants have no score; they pass on income + DTI + enrollment.
+  thin_file_requires_enrollment: true
+
+# Starter limit assignment. Base points, converted to a $300-$1000 band.
+limit_scoring:
+  base: 300
+  income_coefficient: 0.35       # $ of limit per $ of monthly income
+  scored_bonus_per_point: 3.0    # $ per credit-score point above min
+  thin_file_penalty: 100         # thin-file applicants start lower
+  graduate_bonus: 150
+  senior_bonus: 75
+  rounding: 50                    # round limits to nearest $50
