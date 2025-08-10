@@ -1,0 +1,48 @@
+# Monte Carlo portfolio simulation parameters.
+
+seed: 20260716
+n_runs: 10000
+horizon_months: 36        # CLV horizon per cardholder
+
+# Stochastic monthly spend: lognormal, student-scaled (~$300-600 median band).
+monthly_spend:
+  lognormal:
+    mu: 6.0               # exp(6.0) ~= $403 median
+    sigma: 0.4
+  min: 50
+  max: 3000
+
+# Share of spend at partner merchants (beta distribution).
+partner_share:
+  alpha: 3.0
+  beta: 4.0               # mean ~0.43
+
+# Revolve rate: fraction of statement balance carried (beta).
+revolve_rate:
+  scored:    { alpha: 2.0, beta: 5.0 }   # mean ~0.29
+  thin_file: { alpha: 3.0, beta: 4.0 }   # mean ~0.43, thin-file revolve more
+
+# Annual default (charge-off) probability. Reduced by course completion.
+default:
+  annual_prob:
+    scored: 0.05
+    thin_file: 0.08
+  course_completion_multiplier: 0.6   # course completion cuts default hazard 40%
+  loss_given_default: 0.85            # fraction of outstanding balance lost
+
+# Attrition / graduation churn: geometric monthly churn hazard.
+attrition:
+  monthly_churn:
+    freshman: 0.015
+    sophomore: 0.018
+    junior: 0.022
+    senior: 0.05          # graduation churn spikes
+    graduate: 0.06
+
+# Segments to report CLV distributions for.
+segments:
+  by_school_year: true
+  by_file_type: true       # thin-file vs scored
+  by_course: true          # course-completed vs not
+
+var_confidence: 0.95       # VaR / CVaR confidence level
