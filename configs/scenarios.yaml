@@ -1,0 +1,40 @@
+# Deterministic 24-month operational scenarios: base / bull / bear.
+
+horizon_months: 24
+student_body: 30000           # addressable Columbia student population
+starting_cardholders: 50      # beta cohort
+breakeven_target: 1500        # cardholder count Crown targets for break-even
+
+# Per-cardholder monthly economics feed from Crown-share CLV; overridable here.
+per_cardholder:
+  avg_monthly_spend: 520          # NYC student, most spend on the card
+  partner_spend_share: 0.45       # campus-heavy spend mix
+  revolve_rate: 0.38
+  avg_revolving_balance: 480      # accumulated carried balance (drives interest)
+
+# Monthly fixed operating expense for the lean single-campus pilot
+# (small founding team + compliance; the partner bank carries core servicing).
+fixed_opex_monthly: 6000
+
+# Variable servicing cost per active cardholder per month.
+servicing_cost_per_cardholder: 1.25
+
+scenarios:
+  base:
+    monthly_growth_rate: 0.18       # 18% MoM cardholder growth
+    adoption_ceiling: 0.15          # 15% of student body
+    default_annual: 0.065
+    cac: 55                         # customer acquisition cost
+    partner_sponsor_offset: 0.6
+  bull:
+    monthly_growth_rate: 0.26
+    adoption_ceiling: 0.30
+    default_annual: 0.05
+    cac: 40
+    partner_sponsor_offset: 0.65
+  bear:
+    monthly_growth_rate: 0.10
+    adoption_ceiling: 0.05
+    default_annual: 0.09
+    cac: 80
+    partner_sponsor_offset: 0.45
