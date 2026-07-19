@@ -1,7 +1,7 @@
-Crown-card
+Crown card
 
 Data infrastructure and financial modeling backend for **Crown**, a student
-credit card startup that partnered with a bank issuer and ran a 50-user beta at
+credit card startup that's goal was to partnerwith a bank issuer and ran a 50-user beta at
 Columbia University.
 
 Crown's economics in one paragraph: revenue comes from **interchange fees**
