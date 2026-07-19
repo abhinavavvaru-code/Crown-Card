@@ -1,4 +1,4 @@
-# crown-card
+Crown-card
 
 Data infrastructure and financial modeling backend for **Crown**, a student
 credit card startup that partnered with a bank issuer and ran a 50-user beta at
