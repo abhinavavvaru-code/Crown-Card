@@ -63,8 +63,13 @@ deterministic scenarios.
 
 ```bash
 cd crown-card
-python -m venv .venv && source .venv/bin/activate    # optional
-pip install -r requirements.txt                       # or: pip install -e ".[dev]"
+
+# create and activate a virtual environment (optional)
+python -m venv .venv
+source .venv/bin/activate
+
+# install dependencies (or: pip install -e ".[dev]")
+pip install -r requirements.txt
 ```
 
 Python 3.11+. Dependencies: NumPy, pandas, SciPy, matplotlib, SQLAlchemy,
